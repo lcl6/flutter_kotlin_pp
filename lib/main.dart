@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter_kotlin_pp/RandomWords.dart';
+
+import 'DetailRoute.dart';
+import 'LoginRoute.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,6 +25,26 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+        onGenerateRoute: (RouteSettings settings){
+          String routeName = settings.name;
+          var isLogin=settings.arguments;
+
+          return MaterialPageRoute(builder: (context){
+            if(isLogin){
+              if(routeName==DetailRoute.routeName){
+                return new DetailRoute();
+              }else{
+                return new LoginRoute();
+              }
+            }else{
+              return new LoginRoute();
+            }
+
+          });
+        },
+//        routes: {
+//            "DetailRoute":(context)=>DetailRoute(),
+//        },
         home: RandomWords(),
 
 //      home: MyHomePage(title: 'Welcome to flutter'),

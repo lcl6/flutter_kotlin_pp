@@ -2,6 +2,8 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kotlin_pp/RandomWords.dart';
 
+import 'DetailRoute.dart';
+
 class RandomWordsState extends State<RandomWords>{
   final _suggestions = <WordPair>[];
   final _biggerFont=const TextStyle(fontSize: 18.0);
@@ -15,6 +17,18 @@ class RandomWordsState extends State<RandomWords>{
        title: new Text("startup Name genetator "),
      ),
      body: _buildSuggestions(),
+     floatingActionButton: FloatingActionButton(
+       onPressed:(){
+         //命名路由
+         Navigator.pushNamed(context, DetailRoute.routeName,arguments:true);
+         //非命名路由
+//         Navigator.push(context,MaterialPageRoute(builder: (context){
+//           return new DetailRoute();
+//         }));
+       },
+       tooltip: 'Increment',
+       child: Icon(Icons.add),
+     ),
    );
 
   }
