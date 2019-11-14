@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter_kotlin_pp/RandomWords.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Welcome to flutter'),
+        home: RandomWords(),
+
+//      home: MyHomePage(title: 'Welcome to flutter'),
     );
   }
 }
@@ -100,7 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
-            Text(wordPair.asPascalCase),
+            new RandomWords(),
+            new RandomWords(),
+//            Text(wordPair.asPascalCase),
           ],
         ),
       ),
