@@ -10,8 +10,6 @@ class RandomWordsState extends State<RandomWords>{
   @override
   Widget build(BuildContext context) {
 
-    var wordPair = new WordPair.random();
-//    return new Text(wordPair.asPascalCase);
    return new Scaffold(
      appBar: new AppBar(
        title: new Text("startup Name genetator "),
@@ -34,25 +32,46 @@ class RandomWordsState extends State<RandomWords>{
   }
 
   Widget _buildSuggestions(){
-    return new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context,i){
-          if(i.isOdd)return new Divider();
 
-          final index=i~/2;
-          if(index>=_suggestions.length){
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        }
+    return new Scaffold(
+                  body: RefreshIndicator(
+                    onRefresh: _onRefresh,
+                    child: ListView.builder(
+                      itemBuilder:(context,i){
+                        if(i.isOdd)return new Divider();
+
+                        final index=i~/2;
+                        if(index>=_suggestions.length){
+                          _suggestions.addAll(generateWordPairs().take(10));
+                        }
+                        return _buildRow(_suggestions[index]);
+                      } ,
+                    ),
+
+                  ),
+
     );
   }
-
+  /// 下拉刷新方法,为list重新赋值
+  Future<Null> _onRefresh() async {
+    await Future.delayed(Duration(seconds: 3), () {
+      print('refresh');
+      setState(() {
+        _suggestions.addAll(generateWordPairs().take(10));
+      });
+    });
+  }
   Widget _buildRow(WordPair  pair){
-
     return new ListTile(
       title: new Text(pair.asPascalCase,  style:_biggerFont),
+      onTap:(){
+        Navigator.pushNamed(context, DetailRoute.routeName,arguments:true);
+      },
     );
+
+
   }
+
+
 
 }
