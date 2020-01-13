@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kotlin_pp/RandomWords.dart';
+import 'package:flutter_kotlin_pp/state/Counter.dart';
 
 import 'DetailRoute.dart';
 
@@ -18,7 +19,7 @@ class RandomWordsState extends State<RandomWords>{
      floatingActionButton: FloatingActionButton(
        onPressed:(){
          //命名路由
-         Navigator.pushNamed(context, DetailRoute.routeName,arguments:true);
+         Navigator.pushNamed(context, Counter.CounterName,arguments:true);
          //非命名路由
 //         Navigator.push(context,MaterialPageRoute(builder: (context){
 //           return new DetailRoute();
