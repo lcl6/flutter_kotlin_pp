@@ -39,10 +39,15 @@ class DetailRoute extends StatelessWidget{
                 ),
               ],
             ),
-            const Image(
-              image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-            ),
 
+//
+//             Image(
+//              image: AssetImage('images/logo.png'),
+//            ),
+            new FadeInImage.assetNetwork(
+              placeholder:'images/logo.png',
+              image: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+            ),
 
             new Container(
               //设置边距
