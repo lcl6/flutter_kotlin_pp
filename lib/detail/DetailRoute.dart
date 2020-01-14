@@ -104,7 +104,9 @@ class DetailRoute extends StatelessWidget{
                     });},
                     child: new Text('撤退'),
                   ),
-                  new RaisedButton(onPressed: null,
+                  new RaisedButton(onPressed: (){
+                    _showMenu(context);
+                  },
                     child: new Text('冲鸭'),
                   )
                 ],
@@ -124,5 +126,76 @@ class DetailRoute extends StatelessWidget{
 
   }
 
+  _showMenu(BuildContext context) {
+    final RenderBox button = context.findRenderObject();
+    final RenderBox overlay = Overlay
+        .of(context)
+        .context
+        .findRenderObject();
 
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(
+        button.localToGlobal(Offset(100, 100), ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero),
+            ancestor: overlay),
+      ),
+      Offset.zero & overlay.size,
+    );
+    showMenu<String>(
+      context: context,
+      items: _getPopupMenu(context),
+      position: position,
+    // ignore: missing_return
+    ).then<void>((String newValue) {
+//      if (!mounted) return null;
+      if (newValue == null) {
+        print(newValue);
+        Fluttertoast.showToast(
+            msg: "点击了取消",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blueAccent,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        return null;
+      }
+      print(newValue);
+              Fluttertoast.showToast(
+            msg: "点击了$newValue",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blueAccent,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+    });
+  }
 }
+
+  _getPopupMenu(BuildContext context) {
+    return <PopupMenuEntry<String>>[
+      PopupMenuItem<String>(
+        value: '4',
+        child: Text('语文'),
+      ),
+      PopupMenuItem<String>(
+        value: '3',
+        child: Text('数学'),
+      ),
+      PopupMenuItem<String>(
+        value: '2',
+        child: Text('英语'),
+      ),
+      PopupMenuItem<String>(
+        value: '1',
+        child: Text('生物'),
+      ),
+      PopupMenuItem<String>(
+        value: '0',
+        child: Text('化学'),
+      ),
+    ];
+  }
