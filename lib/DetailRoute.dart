@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kotlin_pp/state/Counter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DetailRoute extends StatelessWidget{
   static const routeName = 'DetailRoute';
@@ -26,7 +27,10 @@ class DetailRoute extends StatelessWidget{
                   child:new IconButton(
                     icon: new Icon(Icons.menu),
                     tooltip: 'Navigation menu',
-                    onPressed: null, // null 会禁用 button
+                    onPressed: (){
+
+                      
+                    }, // null 会禁用 button
                     alignment: Alignment.centerLeft,
                   ) ,
                 )
@@ -44,10 +48,25 @@ class DetailRoute extends StatelessWidget{
 //             Image(
 //              image: AssetImage('images/logo.png'),
 //            ),
-            new FadeInImage.assetNetwork(
-              placeholder:'images/logo.png',
-              image: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+          Container(
+
+
+            child: new GestureDetector(
+              onTap: (){Fluttertoast.showToast(
+                  msg: "This is Center Short Toast",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );},
+              child:  new FadeInImage.assetNetwork(
+                placeholder:'images/logo.png',
+                image: 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+              ) ,
             ),
+          ),
 
             new Container(
               //设置边距
@@ -55,7 +74,34 @@ class DetailRoute extends StatelessWidget{
               child:  new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  new RaisedButton(onPressed: null,
+                  new RaisedButton(onPressed: (){
+                    showDialog<Null>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return new AlertDialog(
+                          title: new Text('撤退'),
+                          content: new SingleChildScrollView(
+                            child: new ListBody(
+                              children: <Widget>[
+                                new Text('敌人来了跑呀跑敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀敌人来了跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀跑呀'),
+                                new Text('抛压'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: new Text('消失'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ).then((val) {
+                      print(val);
+                    });},
                     child: new Text('撤退'),
                   ),
                   new RaisedButton(onPressed: null,
@@ -77,5 +123,6 @@ class DetailRoute extends StatelessWidget{
 
 
   }
+
 
 }
