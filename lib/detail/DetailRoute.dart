@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_kotlin_pp/state/Counter.dart';
+import 'package:flutter_kotlin_pp/detail/Counter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class DetailRoute extends StatelessWidget{
@@ -28,11 +28,50 @@ class DetailRoute extends StatelessWidget{
                     icon: new Icon(Icons.menu),
                     tooltip: 'Navigation menu',
                     onPressed: (){
-
-                      
+                      showDialog(context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: Text("这是一个iOS风格的对话框"),
+                              content: SizedBox(
+                                height: 150.0,
+                                child: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("第1行"),
+                                      Text("第2行"),
+                                      Text("第3行"),
+                                      Text("第4行"),
+                                      Text("第5行"),
+                                      Text("第6行"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  child: Text("取消"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    print("取消");
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text("确定"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    print("确定");
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      );
                     }, // null 会禁用 button
+
+
                     alignment: Alignment.centerLeft,
                   ) ,
+
                 )
                 ,
                 // Expanded expands its child to fill the available space.
