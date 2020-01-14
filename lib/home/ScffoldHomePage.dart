@@ -41,8 +41,9 @@ class ScffoldHomePageState extends State<ScffoldHomePage>{
       ),
 
       drawer: Container(
-        color: Colors.amber,
+        color: Colors.white,
         width: 120,
+        height: double.infinity,
         child: FlatButton(
           child: Text('关闭左滑菜单'),
           onPressed: (){
