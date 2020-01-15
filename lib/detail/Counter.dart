@@ -32,8 +32,8 @@ class _CounterState extends State {
         title: new Text('网络请求'),
       ),
       body: FutureBuilder(
-        builder: _buildFuture,
-        future: _gerData(),
+        builder: _buildFuture,// AsyncWidgetBuilder类型的回到函数，是一个基于异步交互构建widget的函数；
+        future: _gerData(),// Future对象表示此构建器当前连接的异步计算
       ),
     );
   }
