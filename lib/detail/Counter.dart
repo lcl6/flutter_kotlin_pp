@@ -4,20 +4,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kotlin_pp/bean/NewsBean.dart';
 
-class Counter extends StatefulWidget{
-
-  static const CounterName="Counter";
+class Counter extends StatefulWidget {
+  static const CounterName = "Counter";
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return new _CounterState();
   }
-
 }
 
-class _CounterState extends State{
-
+class _CounterState extends State {
   Future _gerData() async {
     Response response;
     Dio dio = new Dio();
@@ -31,20 +28,17 @@ class _CounterState extends State{
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: AppBar(title: new Text('网络请求'),),
+      appBar: AppBar(
+        title: new Text('网络请求'),
+      ),
       body: FutureBuilder(
         builder: _buildFuture,
-        future:_gerData() ,
+        future: _gerData(),
       ),
-
     );
-
-
-
-
   }
 
-  Widget  _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
     switch (snapshot.connectionState) {
       case ConnectionState.none:
         print('还没有开始网络请求');
@@ -77,7 +71,8 @@ class _CounterState extends State{
     feeds.forEach((item) {
       items.add(NewsBean(item["type"], item["publishedAt"], item["url"]));
     });
-    return new ListView.builder(itemBuilder: (context,index)=>_itemBuilder(context,index,items),
+    return new ListView.builder(
+        itemBuilder: (context, index) => _itemBuilder(context, index, items),
         itemCount: items.length * 2);
   }
 
@@ -90,22 +85,23 @@ class _CounterState extends State{
 
     return new Column(
       children: <Widget>[
-        Image.network(bean.url,width: 100,height: 100,),
-
-        Row(children: <Widget>[
-          Text(bean.type),
-          Expanded(
-            child:   Text(bean.publishedAt,textAlign: TextAlign.right,),
-          ),
-        ],),
-
-
+        new FadeInImage.assetNetwork(
+          placeholder: 'images/logo.png',
+          image:
+              "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+        ),
+        Row(
+          children: <Widget>[
+            Text(bean.type),
+            Expanded(
+              child: Text(
+                bean.publishedAt,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ],
+        ),
       ],
-
     );
-
-
   }
-
-
 }
