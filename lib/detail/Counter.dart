@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_kotlin_pp/bean/NewsBean.dart';
 
 class Counter extends StatefulWidget{
 
@@ -18,8 +21,9 @@ class _CounterState extends State{
   Future _gerData() async {
     Response response;
     Dio dio = new Dio();
-    response = await dio.get("https://gank.io/api/data/Android/10/1");
-    print(response.data.toString());
+    response = await dio.get("http://gank.io/api/data/Android/10/1");
+
+    print(response.toString());
     return response;
   }
 
@@ -27,7 +31,7 @@ class _CounterState extends State{
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: AppBar(title: new Text('测试点击'),),
+      appBar: AppBar(title: new Text('网络请求'),),
       body: FutureBuilder(
         builder: _buildFuture,
         future:_gerData() ,
@@ -55,7 +59,7 @@ class _CounterState extends State{
         );
       case ConnectionState.done:
         print('done');
-        if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+        if (!snapshot.hasData) return Text('Error: ${snapshot.error}');
         return _createListView(context, snapshot);
       default:
         return null;
@@ -63,9 +67,18 @@ class _CounterState extends State{
   }
 
   Widget _createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List movies = snapshot.data['subjects'];
-    return new ListView.builder(itemBuilder: (context,index)=>_itemBuilder(context,index,movies),
-        itemCount: movies.length * 2);
+    print('-0------');
+    print(snapshot.data.toString());
+    print('-0------');
+    final body = json.decode(snapshot.data.toString());
+    final feeds = body['results'];
+    print(feeds.toString());
+    var items = [];
+    feeds.forEach((item) {
+      items.add(NewsBean(item["type"], item["publishedAt"], item["url"]));
+    });
+    return new ListView.builder(itemBuilder: (context,index)=>_itemBuilder(context,index,items),
+        itemCount: items.length * 2);
   }
 
   Widget _itemBuilder(BuildContext context, int index, List movies) {
@@ -73,10 +86,22 @@ class _CounterState extends State{
       return Divider();
     }
     index = index ~/ 2;
-    return ListTile(
-      title: Text(movies[index]['title']),
-      leading: Text(movies[index]['year']),
-      trailing: Text(movies[index]['original_title']),
+    NewsBean bean = movies[index];
+
+    return new Column(
+      children: <Widget>[
+        Image.network(bean.url,width: 100,height: 100,),
+
+        Row(children: <Widget>[
+          Text(bean.type),
+          Expanded(
+            child:   Text(bean.publishedAt,textAlign: TextAlign.right,),
+          ),
+        ],),
+
+
+      ],
+
     );
 
 
