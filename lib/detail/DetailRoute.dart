@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_kotlin_pp/detail/CallAndroidState.dart';
 import 'package:flutter_kotlin_pp/detail/Counter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -31,18 +32,16 @@ class DetailRoute extends StatelessWidget{
                       showDialog(context: context,
                           builder: (BuildContext context) {
                             return CupertinoAlertDialog(
-                              title: Text("这是一个iOS风格的对话框"),
+                              title: Text("这是调用安卓的方法"),
                               content: SizedBox(
                                 height: 150.0,
                                 child: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
-                                      Text("第1行"),
-                                      Text("第2行"),
-                                      Text("第3行"),
-                                      Text("第4行"),
-                                      Text("第5行"),
-                                      Text("第6行"),
+                                      Text("厉害"),
+                                      Text("厉害"),
+                                      Text("厉害"),
+                                      Text("厉害"),
                                     ],
                                   ),
                                 ),
@@ -52,14 +51,13 @@ class DetailRoute extends StatelessWidget{
                                   child: Text("取消"),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    print("取消");
                                   },
                                 ),
                                 CupertinoDialogAction(
                                   child: Text("确定"),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    print("确定");
+                                    Navigator.push(context,MaterialPageRoute(builder: (context) => CallAndroidState()));
                                   },
                                 ),
                               ],
