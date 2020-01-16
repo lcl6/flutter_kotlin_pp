@@ -20,11 +20,37 @@ const methodName = "log";
 const MethodChannel channel = MethodChannel(channelName);
 
 class CallAndroid extends State{
-
+  //flutter 调用安卓
   static const platform = const MethodChannel("flutter.example.com/native");
+  //安卓调用flutter
+  static const platformChannel =const MethodChannel('com.example.platform_channel/text');
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    platformChannel.setMethodCallHandler((methodCall) async {
+      switch (methodCall.method) {
+        case 'showText':
+          String content = await methodCall.arguments['content'];
+          if (content != null && content.isNotEmpty) {
+            setState(() {
+              titlefl = content;
+            });
+            return 'success';
+          } else {
+            throw PlatformException(
+                code: 'error', message: '失败', details: 'content is null');
+          }
+          break;
+        default:
+          throw MissingPluginException();
+      }
+    });
+  
 
-
+  }
   var title = "demo";
+  var titlefl = "demoflutter";
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -34,10 +60,18 @@ class CallAndroid extends State{
       body: new Column(
         children: <Widget>[
           Text(title),
+          Text(titlefl),
           RaisedButton(
             child: Text('调用安卓吧'),
             onPressed: (){
               _testLog();
+            },
+          ),
+          RaisedButton(
+            child: Text('安卓调用flutter'),
+            onPressed: (){
+              _callFlutter();
+
             },
           ),
         ],
@@ -63,6 +97,11 @@ class CallAndroid extends State{
     setState(() {
       title=result;
     });
+  }
+
+  Future<String> _callFlutter() async {
+    final String result = await platform.invokeMethod<String>("callflutter", "aaa");
+
   }
 
 
