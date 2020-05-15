@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.LOCATION_HARDWARE"/>
     <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter_kotlin_pp"

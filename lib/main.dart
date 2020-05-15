@@ -11,11 +11,10 @@ import 'login/LoginRoute.dart';
  Future main() async {
    WidgetsFlutterBinding.ensureInitialized();
   if(!await _requestPermissions()){
-    await AppUtils.popApp();
+    await AppUtils.popApp();//定位要提前打开
   }else{
     runApp(MyApp());
   }
-
 }
 
 class AppUtils {
@@ -29,6 +28,7 @@ Future<bool> _requestPermissions() async{
       await PermissionHandler().requestPermissions([
     PermissionGroup.storage,
     PermissionGroup.location,
+    PermissionGroup.camera,
   ]);
 
   List<bool> results = permissions.values.toList().map((status) {
