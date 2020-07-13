@@ -3,6 +3,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_kotlin_pp/home/RandomWords.dart';
 import 'package:flutter_kotlin_pp/home/ScffoldHomePage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'detail/DetailRoute.dart';
@@ -11,7 +12,8 @@ import 'login/LoginRoute.dart';
  Future main() async {
    WidgetsFlutterBinding.ensureInitialized();
   if(!await _requestPermissions()){
-    await AppUtils.popApp();//定位要提前打开
+    Fluttertoast.showToast(msg: "请打开对应权限");
+    await AppUtils.popApp();// 手动关闭后 不能重新申请定位要提前打开
   }else{
     runApp(MyApp());
   }

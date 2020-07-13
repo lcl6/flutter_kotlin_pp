@@ -149,6 +149,17 @@ class DetailRoute extends StatelessWidget{
                 ],
               ),
             )
+            ,new Container(
+              child: new Row(
+                children: <Widget>[
+                  new RaisedButton(onPressed: (){
+
+                  },
+                    child: new Text("调用相机"),
+                  )
+                ],
+              ),
+            )
           ],
         )
       ),
